@@ -11,12 +11,16 @@ yargs(hideBin(process.argv)).command("init","Initialize the new repositary",{},i
     describe:'File to be added',
     type:'string'
   });
-},add).command("commit <message>","Commit the staged files",(yargs)=>{
+},(argv)=>{
+  add(argv.file);
+}).command("commit <message>","Commit the staged files",(yargs)=>{
   yargs.positional('message',{
     describe:'Commit message',
     type:'string'
   });
-},commit).command("push","Push commits to S3",{},push)
+},(argv)=>{
+  commit(argv.message);
+}).command("push","Push commits to S3",{},push)
 .command("pull","Pull commits from S3",{},pull).command("revert <commitID>","Revert to a specific commit",(yargs)=>{
   yargs.positional('commitID',{
     describe:'Commit ID to revert to',
